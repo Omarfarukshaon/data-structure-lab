@@ -1,0 +1,54 @@
+#include <iostream>
+using namespace std;
+
+int partition(int array[], int low, int high) {
+    int pivot = array[low];
+    int left = low, right = high;
+
+    while (left < right) {
+        while (array[left] <= pivot)
+            left++;
+        while (array[right] > pivot)
+            right--;
+        if (left < right) {
+            swap(array[left], array[right]);
+        }
+    }
+    swap(array[low], array[right]);
+    return right;
+}
+
+void quickSort(int array[], int low, int high) {
+    if (low < high) {
+        int location = partition(array, low, high);
+
+        quickSort(array, low, location - 1);
+        quickSort(array, location + 1, high);
+    }
+}
+
+void printArray(int array[], int size) {
+    for (int i = 0; i < size; i++) 
+        cout << array[i] << " ";
+    cout << endl;
+}
+
+int main() {
+    int n, i;
+    cout << "Enter array size: ";
+    cin >> n;
+    int array[n];
+    cout << "Enter array elements: ";
+    for (i = 0; i < n; i++)
+        cin >> array[i];
+    cout<<endl;
+    cout << "Unsorted array: ";
+    printArray(array, n);
+
+    quickSort(array, 0, n - 1);
+
+    cout << "Sorted array: ";
+    printArray(array, n);
+    cout<<endl;
+    return 0;
+}
