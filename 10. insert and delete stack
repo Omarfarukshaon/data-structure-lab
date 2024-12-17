@@ -1,0 +1,103 @@
+#include <iostream>
+using namespace std;
+
+// Structure to represent a node in the stack
+struct Node {
+    int data;
+    Node* next;
+    Node(int data) {
+        this->data = data;
+        next = nullptr;
+    }
+};
+
+// Class to represent a stack using linked list
+class Stack {
+private:
+    Node* top;
+
+public:
+    Stack() {
+        top = nullptr;
+    }
+
+    // Function to check if the stack is empty
+    bool isEmpty() {
+        return top == nullptr;
+    }
+
+    // Function to push an element onto the stack
+    void push(int data) {
+        Node* newNode = new Node(data);
+        newNode->next = top;
+        top = newNode;
+        cout << "Element " << data << " pushed onto the stack." << endl;
+    }
+
+    // Function to pop an element from the stack
+    void pop() {
+        if (isEmpty()) {
+            cout << "Stack is empty. Cannot pop an element." << endl;
+            return;
+        }
+        Node* temp = top;
+        top = top->next;
+        cout << "Element " << temp->data << " popped from the stack." << endl;
+        delete temp;
+    }
+
+    // Function to display the elements of the stack
+    void display() {
+        if (isEmpty()) {
+            cout << "Stack is empty." << endl;
+            return;
+        }
+        Node* temp = top;
+        cout << "\n\nStack elements: ";
+        while (temp != nullptr) {
+            cout << temp->data << " ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Stack stack;
+    int choice, data,n;
+    while (true) {
+        cout << "Menu:\n";
+        cout << "1. Push\n";
+        cout << "2. Pop\n";
+        cout << "3. Display\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+        cout << "Enter the number of elements to push onto the stack: ";
+        cin >> n;
+        for (int i = 0; i < n; ++i) {
+            cout << "Enter element " << i + 1 << ": ";
+            cin >> data;
+            stack.push(data);
+        }
+                stack.push(data);
+                break;
+            case 2:
+                stack.pop();
+                break;
+            case 3:
+                stack.display();
+                break;
+            case 4:
+                cout << "Exiting the program. Goodbye!" << endl<<endl<<endl;
+                return 0;
+            default:
+                cout << "Invalid choice. Please try again." << endl<<endl<<endl;
+        }
+    }
+
+    return 0;
+}
