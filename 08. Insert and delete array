@@ -1,0 +1,75 @@
+#include<iostream>
+using namespace std;
+
+void insertElement(int array[], int &n, int element, int location) {
+    for (int i = n - 1; i >= location; i--)
+        array[i + 1] = array[i];
+    array[location] = element;
+    n++;
+}
+
+void deleteElement(int array[], int &n, int element) {
+    for (int i = 0; i < n; i++) {
+        if (array[i] == element) {
+            for (int j = i; j < n - 1; j++)
+                array[j] = array[j + 1];
+            n--;
+            break;
+        }
+    }
+}
+
+void printArray(int array[], int n) {
+    for (int i = 0; i < n; i++)
+        cout << array[i] << " ";
+    cout << endl;
+}
+
+int main() {
+    int i, n, element, choice, location;
+    
+    cout << "Enter the size of the array: ";
+    cin >> n;
+    int array[n];
+    
+    cout << "Enter array elements: ";
+    for (i = 0; i < n; i++)
+        cin >> array[i];
+    
+     while (true) {
+        cout << "\nMenu:\n";
+        cout << "1. Insert an element in the array\n";
+        cout << "2. Delete an element from the array\n";
+        cout << "3. Exit\n";
+        cout << "Select your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter an element to insert: ";
+                cin >> element;
+                cout << "Enter a position to insert the element: ";
+                cin >> location;
+                location--;
+                insertElement(array, n, element, location);
+                cout << "List after insertion: ";
+                printArray(array, n);
+                break;
+            case 2:
+                cout << "Enter the element to delete: ";
+                cin >> element;
+                deleteElement(array, n, element);
+                cout << "List after deletion: ";
+                printArray(array, n);
+                break;
+            case 3:
+                cout << "Exiting...\n";
+                break;
+            default:
+                cout << "Wrong choice. Try again.\n";
+                break;
+        }
+    } 
+    
+    return 0;
+}
