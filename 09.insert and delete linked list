@@ -1,0 +1,120 @@
+#include <iostream>
+using namespace std;
+
+struct node {
+    int info;
+    node* next;
+};
+
+node* start = nullptr;
+
+void insert(int data) {
+    node* temp = new node();
+    temp->info = data;
+    temp->next = start;
+    start = temp;
+}
+// Function to insert a node at a given position
+void ins_pos(int position, int data1) {
+    if (position < 1) {
+        cout << "Invalid position.\n";
+        return;
+    }
+    node* temp = new node();
+    temp->info = data1;
+    temp->next = nullptr;
+    if (position == 1) {
+        temp->next = start;
+        start = temp;
+    } else {
+        node* current = start;
+        for (int i = 1; current != nullptr && i < position - 1; ++i) {
+            current = current->next;
+        }
+        if (current == nullptr) {
+            cout << "Position out of range\n";
+            delete temp;
+            return;
+        }
+        temp->next = current->next;
+        current->next = temp;
+    }
+}
+
+void print() {
+    node* temp = start;
+    while (temp != nullptr) {
+        cout << temp->info << "->";
+        temp = temp->next;
+    }
+    cout << "x" << endl;
+}
+
+// Function to delete a node at a given position
+node* deleteNode(node* head, int position) {
+    if (head == nullptr) return head;
+
+    node* temp = head;
+
+    if (position == 1) {
+        head = temp->next;
+        delete temp;
+        return head;
+    }
+
+    node* prev = nullptr;
+    for (int i = 1; temp != nullptr && i < position; ++i) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp == nullptr) {
+        cout << "Position out of range\n";
+        return head;
+    }
+
+    prev->next = temp->next;
+    delete temp;
+
+    return head;
+}
+
+void printList(node* head) {
+    while (head != nullptr) {
+        cout << head->info << " -> ";
+        head = head->next;
+    }
+    cout << "nullptr" << endl;
+}
+
+int main() {
+    int data, count, position, data1;
+
+    cout << "Enter number of nodes: ";
+    cin >> count;
+
+    for (int i = 0; i < count; ++i) {
+        cin >> data;
+        insert(data);
+    }
+
+    cout << "The linked list is: ";
+    print();
+
+    cout << "\nEnter position to insert: ";
+    cin >> position;
+    cout << "Enter the data to be inserted: ";
+    cin >> data1;
+
+    ins_pos(position, data1);
+    print();
+
+    cout << "\nEnter position to delete: ";
+    cin >> position;
+
+    start = deleteNode(start, position);
+    cout << "\nList after deletion: ";
+    print();
+    cout<<endl<<endl<<endl;
+    return 0;
+}
