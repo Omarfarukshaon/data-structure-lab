@@ -1,0 +1,28 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+void toh(int n,char beg,char aux,char end){
+if(n==1){
+cout<<"\n Shift top disk from tower "<<beg<<" -> "<<end;
+return;
+}
+toh(n-1,beg,end,aux);
+cout<<"\n Shift top disk from tower "<<beg<<" -> "<<end;
+toh(n-1,aux,beg,end);
+}
+
+int main(){
+int disk;
+cout<<"enter the no. of disk: ";
+cin>>disk;
+if(disk<1)
+cout<<"\nThere are no disks to shift .";
+else
+cout<<"\nThere are "<<disk<<" disks in tower A.\n";
+
+toh(disk,'A','B','C');
+cout<<"\n\n"<<disk<<" disks in tower A are shifted to tower C.\n";
+int count=pow(2,disk) -1;
+cout<<"Total count "<<count<<endl<<endl;
+return 0;
+}
